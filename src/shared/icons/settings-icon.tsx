@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { Rect, Circle } from "react-native-svg";
-const SVGComponent = (props: any) => (
+const SettingsIcon = (props: any) => (
     <Svg
         width={21}
         height={18}
@@ -15,4 +15,4 @@ const SVGComponent = (props: any) => (
         <Circle cx={14} cy={3} r={3} fill="#722626" />
     </Svg>
 );
-export default SVGComponent;
+export default SettingsIcon;
