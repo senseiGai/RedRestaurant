@@ -7,6 +7,7 @@ import CartScreen from '../screens/cart-screen';
 import ContactsScreen from '../screens/contacts-screen';
 import ReserveScreen from '../screens/reserve-screen';
 import ReserveSuccessScreen from '../screens/reserve-success-screen';
+import EventsScreen from '../screens/events-screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,10 @@ export default function MainStack() {
       <Stack.Screen
         name="ReserveSuccess"
         component={ReserveSuccessScreen}
+      />
+      <Stack.Screen
+        name="Events"
+        component={EventsScreen}
       />
     </Stack.Navigator>
   );

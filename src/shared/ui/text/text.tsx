@@ -2,7 +2,7 @@ import React from "react";
 import { Text as RNText, TextProps as RNTextProps } from "react-native";
 
 type FontWeight = "light" | "regular" | "medium" | "bold";
-type FontFamily = "montserrat" | "inter";
+type FontFamily = "montserrat" | "inter" | "montserratAlternates";
 
 interface CustomTextProps extends RNTextProps {
     weight?: FontWeight;
@@ -23,9 +23,17 @@ const interFontMap: Record<FontWeight, string> = {
     bold: "Inter-Bold",
 };
 
+const montserratAlternatesFontMap: Record<FontWeight, string> = {
+    light: "MontserratAlternates-Light",
+    regular: "MontserratAlternates-Regular",
+    medium: "MontserratAlternates-Medium",
+    bold: "MontserratAlternates-Bold",
+};
+
 const fontFamilyMap: Record<FontFamily, Record<FontWeight, string>> = {
     montserrat: montserratFontMap,
     inter: interFontMap,
+    montserratAlternates: montserratAlternatesFontMap,
 };
 
 const Text: React.FC<CustomTextProps> = ({
