@@ -8,7 +8,7 @@ import BackArrowIcon from '../../icons/back-arrow-icon'
 const BackButton = () => {
     const navigation = useNavigation();
     return (
-        <MyTouchableOpacity onPress={() => navigation.goBack()} className='flex items-center flex-row gap-1'>
+        <MyTouchableOpacity onPress={() => navigation.goBack()} className='flex mt-1 items-center flex-row gap-1'>
             <BackArrowIcon />
             <Text className='text-[#FFA3A3] text-[15px] font-[500]'>BACK</Text>
         </MyTouchableOpacity>

@@ -3,15 +3,18 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import LinearGradient from 'react-native-linear-gradient'
 import BottomTabNavigation from '../bottom-tab-navigation/bottom-tab-navigation'
 import BackButton from '../back-button/back-button'
+import Text from '../text/text'
 
 import ElementsBackground from '../../icons/elements-background'
 
 interface AppLayoutProps {
     children: React.ReactNode
     isBack?: boolean
+    title?: string
+    width?: string
 }
 
-const AppLayout = ({ children, isBack }: AppLayoutProps) => {
+const AppLayout = ({ children, isBack, title, width }: AppLayoutProps) => {
     return (
         <>
             <LinearGradient
@@ -23,7 +26,10 @@ const AppLayout = ({ children, isBack }: AppLayoutProps) => {
                         <ElementsBackground />
                     </View>
                     <View className='flex-1 px-4 max-w-full'>
-                        {isBack && <BackButton />}
+                        <View className={`flex items-center justify-between flex-row ${width ? width : 'w-[62%]'}`}>
+                            {isBack && <BackButton />}
+                            {title && <Text className='text-[#FFA3A3] font-[500] text-[20px]'>{title}</Text>}
+                        </View>
                         {children}
                     </View>
                     <BottomTabNavigation />
