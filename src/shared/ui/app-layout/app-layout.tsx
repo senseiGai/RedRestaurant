@@ -28,7 +28,7 @@ const AppLayout = ({ children, isBack, title, width }: AppLayoutProps) => {
                     <View className='flex-1 px-4 max-w-full'>
                         <View className={`flex items-center justify-between flex-row ${width ? width : 'w-[62%]'}`}>
                             {isBack && <BackButton />}
-                            {title && <Text className='text-[#FFA3A3] font-[500] text-[20px]'>{title}</Text>}
+                            {title && <Text weight='medium' className='text-[#FFA3A3] font-[500] text-[20px]'>{title}</Text>}
                         </View>
                         {children}
                     </View>

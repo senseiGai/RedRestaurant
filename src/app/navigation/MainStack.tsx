@@ -8,8 +8,30 @@ import ContactsScreen from '../screens/contacts-screen';
 import ReserveScreen from '../screens/reserve-screen';
 import ReserveSuccessScreen from '../screens/reserve-success-screen';
 import EventsScreen from '../screens/events-screen';
+import EventDetailsScreen from '../screens/event-details-screen';
 
-const Stack = createNativeStackNavigator();
+
+export type EventType = {
+  image: any;
+  title: string;
+  date: string;
+  bluredImage: any;
+  paragraph: string
+}
+
+export type MainStackParamList = {
+  Menu: undefined;
+  Cart: undefined;
+  Contacts: undefined;
+  Reserve: undefined;
+  ReserveSuccess: undefined;
+  Events: undefined;
+  EventDetails: {
+    event: EventType;
+  };
+};
+
+const Stack = createNativeStackNavigator<MainStackParamList>();
 
 export default function MainStack() {
   return (
@@ -37,6 +59,10 @@ export default function MainStack() {
       <Stack.Screen
         name="Events"
         component={EventsScreen}
+      />
+      <Stack.Screen
+        name="EventDetails"
+        component={EventDetailsScreen}
       />
     </Stack.Navigator>
   );
