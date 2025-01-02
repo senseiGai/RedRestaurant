@@ -30,10 +30,10 @@ const EventCard = ({ event }: IEventCardProps) => {
             </MyTouchableOpacity>
             <Image source={event.image} className='w-[95%] h-[155px] rounded-[20px] mt-4' />
             <View className='bg-[#FFA3A3] w-[80%] h-[53px] rounded-[31px] px-[22px] pt-2 absolute -bottom-2'>
-                <Text family='montserratAlternates' className='text-[#4E0404] text-[14px] font-[500]'>{event.title}</Text>
+                <Text weight='medium' family='montserratAlternates' className='text-[#4E0404] text-[14px] font-[500]'>{event.title}</Text>
                 <View className='flex flex-row items-center gap-1'>
                     <CalendarIcon />
-                    <Text family='montserratAlternates' className='text-[#4E0404] text-[15.5px] font-[600]'>Date: {event.date}</Text>
+                    <Text weight='medium' family='montserratAlternates' className='text-[#4E0404] text-[15.5px] font-[600]'>Date: {event.date}</Text>
                 </View>
             </View>
         </MyTouchableOpacity>

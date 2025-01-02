@@ -9,6 +9,7 @@ import ReserveScreen from '../screens/reserve-screen';
 import ReserveSuccessScreen from '../screens/reserve-success-screen';
 import EventsScreen from '../screens/events-screen';
 import EventDetailsScreen from '../screens/event-details-screen';
+import BonusesScreen from '../screens/bonuses-screen';
 
 
 export type EventType = {
@@ -26,6 +27,7 @@ export type MainStackParamList = {
   Reserve: undefined;
   ReserveSuccess: undefined;
   Events: undefined;
+  Bonuses: undefined;
   EventDetails: {
     event: EventType;
   };
@@ -63,6 +65,10 @@ export default function MainStack() {
       <Stack.Screen
         name="EventDetails"
         component={EventDetailsScreen}
+      />
+      <Stack.Screen
+        name="Bonuses"
+        component={BonusesScreen}
       />
     </Stack.Navigator>
   );
