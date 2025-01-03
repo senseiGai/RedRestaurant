@@ -25,9 +25,6 @@ const EventDetailsScreen = ({ route }: EventDetailsProps) => {
             <View className='flex flex-col flex-1'>
                 <View className='w-[107%] h-[202px] self-center'>
                     <Image source={event.bluredImage} className='w-full h-full mt-7' />
-                    <MyTouchableOpacity className='absolute top-10 right-4 z-10'>
-                        <BigHeartIcon />
-                    </MyTouchableOpacity>
                 </View>
                 <View className='bg-[#FFBABA7A] w-[325px] mt-[40px] rounded-[15px] self-center py-1'>
                     <Text family='montserratAlternates' weight='bold' className='text-[#4E0404] text-[17px] text-center'>{event.title}</Text>

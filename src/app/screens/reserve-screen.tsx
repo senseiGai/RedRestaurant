@@ -103,7 +103,6 @@ const ReserveScreen = () => {
                                 keyboardType="numeric"
                                 style={{ fontFamily: 'Inter-Regular' }}
                             />
-                            <BottomArrowIcon />
                         </View>
                     </View>
 
@@ -118,9 +117,6 @@ const ReserveScreen = () => {
                                 keyboardType="numeric"
                                 style={{ fontFamily: 'Inter-Regular' }}
                             />
-                            <View className='pr-1'>
-                                <BottomArrowIcon />
-                            </View>
                         </View>
                     </View>
                 </View>
