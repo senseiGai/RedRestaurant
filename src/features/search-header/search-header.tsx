@@ -12,7 +12,7 @@ interface SearchHeaderProps {
 const SearchHeader = ({ searchValue, onSearchChange }: SearchHeaderProps) => {
     return (
         <View className="w-full flex flex-row items-center h-[41px] justify-between overflow-hidden">
-            <View className="bg-[#FFD4D447] flex-row justify-between items-center px-[12px] rounded-[33px] h-full w-[85%]">
+            <View className="bg-[#FFD4D447] flex-row justify-between items-center px-[12px] rounded-[33px] h-full w-[100%]">
                 <TextInput
                     value={searchValue}
                     onChangeText={onSearchChange}
@@ -23,9 +23,6 @@ const SearchHeader = ({ searchValue, onSearchChange }: SearchHeaderProps) => {
                 />
                 <SearchIcon />
             </View>
-            <MyTouchableOpacity className="bg-[#FFD4D447] w-[50px] h-[41px] rounded-[33px] flex items-center justify-center">
-                <SettingsIcon />
-            </MyTouchableOpacity>
         </View>
     )
 }

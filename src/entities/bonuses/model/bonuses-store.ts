@@ -14,6 +14,7 @@ interface BonusesStore {
     validateCode: (code: string) => Promise<boolean>;
     incrementBonus: () => void;
     initializeBonuses: () => Promise<void>;
+    resetBonuses: () => Promise<void>;
 }
 
 export const useBonusesStore = create<BonusesStore>((set, get) => ({
@@ -35,29 +36,40 @@ export const useBonusesStore = create<BonusesStore>((set, get) => ({
     setError: (error) => set({ isError: error }),
 
     validateCode: async (code) => {
-        // Here you would typically validate the code against a backend
-        // For now, we'll just check if it's a non-empty string and mark the current bonus as used
-        if (code.trim() !== '') {
+        const validCode = 'BURGER123'
+        if (code === validCode) {
             const { bonusCount, usedBonuses } = get()
             const newUsedBonuses = [...usedBonuses]
             newUsedBonuses[bonusCount] = true
             
             await AsyncStorage.setItem('usedBonuses', JSON.stringify(newUsedBonuses))
-            set({ usedBonuses: newUsedBonuses })
+            set({ usedBonuses: newUsedBonuses, isError: false })
             
             await get().incrementBonus()
             return true
         }
+        set({ isError: true })
         return false
     },
 
     incrementBonus: async () => {
         const { bonusCount } = get()
-        if (bonusCount < 10) {
+        if (bonusCount < 5) {
             const newCount = bonusCount + 1
             await AsyncStorage.setItem('bonusCount', newCount.toString())
             set({ bonusCount: newCount })
         }
+    },
+
+    resetBonuses: async () => {
+        await AsyncStorage.multiRemove(['bonusCount', 'usedBonuses'])
+        set({
+            bonusCount: 0,
+            usedBonuses: Array(10).fill(false),
+            isError: false,
+            inputCode: '',
+            isModalVisible: false
+        })
     },
 
     initializeBonuses: async () => {

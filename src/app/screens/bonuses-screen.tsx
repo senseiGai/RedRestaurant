@@ -20,7 +20,8 @@ const BonusesScreen = () => {
         setModalVisible,
         setInputCode,
         validateCode,
-        initializeBonuses
+        initializeBonuses,
+        resetBonuses
     } = useBonusesStore()
 
     useEffect(() => {
@@ -70,6 +71,12 @@ const BonusesScreen = () => {
                 </View>
                 <Text weight='medium' className='text-[#FFD4D4] text-[15px] self-center text-center mt-[29px]'>U HAVE {bonusCount}/6</Text>
                 <Text weight='medium' className='text-[#FFFFFF] text-[15px] self-center text-center mt-[27px]'>We're launching a new bonus program to delight our loyal guests! Now every burger you order brings you closer to a free treat</Text>
+                <MyTouchableOpacity 
+                    className='bg-[#FFD4D4] w-[172px] h-[38px] self-center rounded-[31px] flex items-center justify-center mt-4'
+                    onPress={resetBonuses}
+                >
+                    <Text family='montserratAlternates' weight='medium' className='text-[#4E0404] text-[15px] text-center'>Reset Bonuses</Text>
+                </MyTouchableOpacity>
             </View>
             <MyTouchableOpacity className='bg-[#FFA3A3] w-[172px] h-[38px] self-center rounded-[31px] flex items-center justify-center mb-6' onPress={() => navigation.navigate('Menu' as never)}>
                 <Text family='montserratAlternates' weight='medium' className='text-[#4E0404] text-[15px] text-center'>Close bonuses</Text>
