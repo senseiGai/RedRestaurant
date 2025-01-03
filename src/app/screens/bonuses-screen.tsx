@@ -13,6 +13,7 @@ const BonusesScreen = () => {
     const navigation = useNavigation<any>()
     const {
         bonusCount,
+        usedBonuses,
         isModalVisible,
         inputCode,
         isError,
@@ -27,13 +28,17 @@ const BonusesScreen = () => {
     }, [])
 
     const handleCirclePress = (index: number) => {
-        if (index < 5) { // Only first 5 circles are clickable
+        if (index < 5 && !usedBonuses[index]) { // Only first 5 circles are clickable and not used
             setModalVisible(true)
         }
     }
 
-    const handleSubmitCode = async () => {
-        await validateCode(inputCode)
+    const handleSubmit = async () => {
+        const isValid = await validateCode(inputCode)
+        if (isValid) {
+            setModalVisible(false)
+            setInputCode('')
+        }
     }
 
     return (
@@ -46,12 +51,14 @@ const BonusesScreen = () => {
                         {[1, 2, 3, 4, 5, 6].map((num, index) => (
                             <View key={num} className='items-center'>
                                 <MyTouchableOpacity
-                                    className='bg-[#FFD4D4] w-[97px] h-[97px] flex justify-center items-center rounded-full'
+                                    className={`bg-[#FFD4D4] w-[97px] h-[97px] flex justify-center items-center rounded-full ${usedBonuses[index] ? 'opacity-50' : ''}`}
                                     onPress={() => handleCirclePress(index)}
-                                    disabled={index === 5}
+                                    disabled={index === 5 || usedBonuses[index]}
                                 >
                                     {index === 5 ? (
                                         <Text weight='medium' className='text-[#4E0404] text-[15px] font-[600] text-center'>FREE BURGER</Text>
+                                    ) : usedBonuses[index] ? (
+                                        <Text weight='medium' className='text-[#4E0404] text-[15px] text-center'>Used</Text>
                                     ) : (
                                         <BurgerIcon />
                                     )}
@@ -94,7 +101,7 @@ const BonusesScreen = () => {
                             </MyTouchableOpacity>
                             <MyTouchableOpacity
                                 className='bg-[#FFA3A3] px-6 py-2 rounded-[10px]'
-                                onPress={handleSubmitCode}
+                                onPress={handleSubmit}
                             >
                                 <Text weight='medium' className='text-[#4E0404] text-[15px]'>Submit</Text>
                             </MyTouchableOpacity>

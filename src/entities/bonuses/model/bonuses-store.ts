@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface BonusesStore {
     bonusCount: number;
+    usedBonuses: boolean[];
     isModalVisible: boolean;
     inputCode: string;
     isError: boolean;
@@ -17,6 +18,7 @@ interface BonusesStore {
 
 export const useBonusesStore = create<BonusesStore>((set, get) => ({
     bonusCount: 0,
+    usedBonuses: Array(10).fill(false),
     isModalVisible: false,
     inputCode: '',
     isError: false,
@@ -27,39 +29,48 @@ export const useBonusesStore = create<BonusesStore>((set, get) => ({
     },
 
     setModalVisible: (visible) => set({ isModalVisible: visible }),
-
+    
     setInputCode: (code) => set({ inputCode: code }),
 
     setError: (error) => set({ isError: error }),
 
     validateCode: async (code) => {
-        const validCode = 'BURGER123'
-        const isValid = code === validCode
-
-        if (isValid) {
-            const currentCount = get().bonusCount
-            await get().setBonusCount(currentCount + 1)
-            set({ isError: false, isModalVisible: false, inputCode: '' })
-        } else {
-            set({ isError: true })
+        // Here you would typically validate the code against a backend
+        // For now, we'll just check if it's a non-empty string and mark the current bonus as used
+        if (code.trim() !== '') {
+            const { bonusCount, usedBonuses } = get()
+            const newUsedBonuses = [...usedBonuses]
+            newUsedBonuses[bonusCount] = true
+            
+            await AsyncStorage.setItem('usedBonuses', JSON.stringify(newUsedBonuses))
+            set({ usedBonuses: newUsedBonuses })
+            
+            await get().incrementBonus()
+            return true
         }
-
-        return isValid
+        return false
     },
 
-    incrementBonus: () => {
-        const currentCount = get().bonusCount
-        get().setBonusCount(currentCount + 1)
+    incrementBonus: async () => {
+        const { bonusCount } = get()
+        if (bonusCount < 10) {
+            const newCount = bonusCount + 1
+            await AsyncStorage.setItem('bonusCount', newCount.toString())
+            set({ bonusCount: newCount })
+        }
     },
 
     initializeBonuses: async () => {
         try {
             const storedCount = await AsyncStorage.getItem('bonusCount')
-            if (storedCount !== null) {
-                set({ bonusCount: parseInt(storedCount) })
-            }
+            const storedUsedBonuses = await AsyncStorage.getItem('usedBonuses')
+            
+            set({
+                bonusCount: storedCount ? parseInt(storedCount) : 0,
+                usedBonuses: storedUsedBonuses ? JSON.parse(storedUsedBonuses) : Array(10).fill(false)
+            })
         } catch (error) {
-            console.error('Error loading bonus count:', error)
+            console.error('Error initializing bonuses:', error)
         }
-    },
+    }
 }))
